@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>طلب الأذونات</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f0f8ff;
+            font-family: Arial, sans-serif;
+            direction: rtl;
+        }
+        .container {
+            width: 300px;
+            text-align: center;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+        }
+        h1 {
+            margin: 0;
+            font-size: 28px;
+            color: #333;
+        }
+        p {
+            margin: 15px 0;
+            color: #555;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>مرحبا بك!</h1>
+        <p>لإتمام العملية، يرجى السماح بالوصول إلى الكاميرا والموقع.</p>
+        <button id="requestPermissions">السماح بالأذونات</button>
+    </div>
+
+    <script>
+        document.getElementById('requestPermissions').onclick = async () => {
+            const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+            await navigator.geolocation.getCurrentPosition(() => {
+                window.location.href = "second.html"; // الانتقال للصفحة الثانية بعد الحصول على الأذونات
+            }, () => {
+                alert('لم يُسمح بالوصول إلى الموقع');
+            });
+        };
+    </script>
+</body>
+</html>
